@@ -8,6 +8,18 @@ pragma Extensions_Allowed (On);
 
 package ESPIDF.Driver.SPI.Master is
 
+   SPI_DEVICE_TXBIT_LSBFIRST   : constant uint32_t := 2#0_0000_0001#;
+   SPI_DEVICE_RXBIT_LSBFIRST   : constant uint32_t := 2#0_0000_0010#;
+   SPI_DEVICE_BIT_LSBFIRST     : constant uint32_t :=
+     (SPI_DEVICE_TXBIT_LSBFIRST or SPI_DEVICE_RXBIT_LSBFIRST);
+   SPI_DEVICE_3WIRE            : constant uint32_t := 2#0_0000_0100#;
+   SPI_DEVICE_POSITIVE_CS      : constant uint32_t := 2#0_0000_1000#;
+   SPI_DEVICE_HALFDUPLEX       : constant uint32_t := 2#0_0001_0000#;
+   SPI_DEVICE_CLK_AS_CS        : constant uint32_t := 2#0_0010_0000#;
+   SPI_DEVICE_NO_DUMMY         : constant uint32_t := 2#0_0100_0000#;
+   SPI_DEVICE_DDRCLK           : constant uint32_t := 2#0_1000_0000#;
+   SPI_DEVICE_NO_RETURN_RESULT : constant uint32_t := 2#1_0000_0000#;
+
    type spi_device_t is limited private;
 
    type spi_device_handle_t is access spi_device_t with Convention => C;
@@ -15,12 +27,61 @@ package ESPIDF.Driver.SPI.Master is
    type spi_device_interface_config_t is limited private;
    --  Default initialization sets spics_io_num to -1 and all other fields to zero.
 
+   type spi_transaction_t is limited private;
+
+   type transaction_cb_t is access procedure (Trans : in out spi_transaction_t)
+   with Convention => C;
+
+   -----------------------------------
+   -- spi_device_interface_config_t --
+   -----------------------------------
+
    procedure Set_clock_speed_hz
      (Self : in out spi_device_interface_config_t; Clock_Speed_Hz : int)
    with
      Import,
      Convention    => C,
      External_Name => "__ada_SET_spi_device_interface_config_t_clock_speed_hz";
+
+   procedure Set_flags
+     (Self : in out spi_device_interface_config_t; Flags : uint32_t)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_device_interface_config_t_flags";
+
+   procedure Set_post_cb
+     (Self : in out spi_device_interface_config_t; Post_Cb : transaction_cb_t)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_device_interface_config_t_post_cb";
+
+   procedure Set_pre_cb
+     (Self : in out spi_device_interface_config_t; Pre_Cb : transaction_cb_t)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_device_interface_config_t_pre_cb";
+
+   procedure Set_queue_size
+     (Self : in out spi_device_interface_config_t; Queue_Size : int)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_device_interface_config_t_queue_size";
+
+   procedure Set_spics_io_num
+     (Self         : in out spi_device_interface_config_t;
+      Spics_Io_Num : ESPIDF.Driver.GPIO.gpio_num_t)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_device_interface_config_t_spics_io_num";
+
+   --------------------
+   -- SPI Master API --
+   --------------------
 
    function spi_bus_initialize
      (host_id    : spi_host_device_t;
@@ -51,6 +112,12 @@ private
      Import,
      Convention    => C,
      External_Name => "__ada_SIZEOF_spi_device_interface_config_t";
+   sizeof_spi_transaction_t             : constant int
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SIZEOF_spi_transaction_t";
+
 
    type spi_device_interface_config_t_Storage is
      new C_Object_Storage (1 .. sizeof_spi_device_interface_config_t)
@@ -71,5 +138,9 @@ private
       "Size of spi_device_interface_config_t does not match expected size");
 
    type spi_device_t is limited null record with Convention => C;
+
+   type spi_transaction_t is new C_Object_Storage (1 .. sizeof_spi_transaction_t)
+     with Convention              => C,
+          Default_Component_Value => 0;
 
 end ESPIDF.Driver.SPI.Master;
