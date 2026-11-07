@@ -1,0 +1,21 @@
+--
+--  Copyright (C) 2026, Vadim Godunko <vgodunko@gmail.com>
+--
+--  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+--
+
+with "config/espidfada_driver_spi_config.gpr";
+
+with "espidf.gpr";
+
+library project ESPIDFAda_Driver_SPI is
+
+   for Languages use ESPIDF.Crate_Languages_Ada_C;
+   for Library_Name use "espidfada_driver_spi";
+   for Library_Dir use ESPIDF.Crate_Library_Dir;
+   for Object_Dir use ESPIDF.Crate_Object_Dir;
+   for Source_Dirs use ("source");
+
+   package Compiler renames ESPIDF.Compiler;
+
+end ESPIDFAda_Driver_SPI;

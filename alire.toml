@@ -1,0 +1,21 @@
+name = "espidfada_driver_spi"
+version = "0.2.0-dev"
+website = "https://github.com/godunko/espidfada_spi_master"
+description = "Ada/ESP-IDF: SPI bindings"
+long-description = """
+Ada bindings for the ESP-IDF SPI component (`esp_driver_spi`).
+"""
+
+authors = ["Vadim Godunko"]
+maintainers = ["Vadim Godunko <vgodunko@gmail.com>"]
+maintainers-logins = ["godunko"]
+licenses = "Apache-2.0 WITH LLVM-exception"
+tags = ["a0b", "embedded", "esp", "esp32", "espidf", "spi"]
+
+[configuration]
+generate_ada = false
+generate_c = false
+generate_gpr = true
+
+[[depends-on]]
+espidf = "*"
