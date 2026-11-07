@@ -23,17 +23,6 @@ package ESPIDF.Driver.SPI is
       SPI_DMA_CH2      => 2,
       SPI_DMA_CH_AUTO  => 3);
 
-   function spi_bus_initialize
-     (host_id    : spi_host_device_t;
-      bus_config : spi_bus_config_t;
-      dma_chan   : spi_common_dma_t) return esp_err_t
-   with Import, Convention => C, External_Name => "spi_bus_initialize";
-
-   procedure spi_bus_initialize
-     (host_id    : spi_host_device_t;
-      bus_config : spi_bus_config_t;
-      dma_chan   : spi_common_dma_t);
-
 private
 
    sizeof_spi_bus_config_t : constant int
