@@ -1,7 +1,7 @@
 name = "espidfada_driver_spi"
-version = "0.2.0-dev"
-website = "https://github.com/godunko/espidfada_spi_master"
-description = "Ada/ESP-IDF: SPI bindings"
+version = "0.1.0-dev"
+website = "https://github.com/godunko/espidfada_driver_spi"
+description = "ESP-IDF/Ada: SPI bindings"
 long-description = """
 Ada bindings for the ESP-IDF SPI component (`esp_driver_spi`).
 """
