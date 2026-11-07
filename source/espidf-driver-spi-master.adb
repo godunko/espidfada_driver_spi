@@ -9,6 +9,19 @@ with ESPIDF.Ada_ESP_Check_Error;
 package body ESPIDF.Driver.SPI.Master is
 
    ------------------------
+   -- spi_bus_add_device --
+   ------------------------
+
+   procedure spi_bus_add_device
+     (host_id    : spi_host_device_t;
+      dev_config : spi_device_interface_config_t;
+      handle     : out spi_device_handle_t) is
+   begin
+      ESPIDF.Ada_ESP_Check_Error
+        (spi_bus_add_device (host_id, dev_config, handle));
+   end spi_bus_add_device;
+
+   ------------------------
    -- spi_bus_initialize --
    ------------------------
 
