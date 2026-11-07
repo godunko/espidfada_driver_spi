@@ -6,16 +6,20 @@
 
 with "config/espidfada_driver_spi_config.gpr";
 
-with "espidf.gpr";
+with "espidfada.gpr";
 
 library project ESPIDFAda_Driver_SPI is
 
-   for Languages use ESPIDF.Crate_Languages_Ada_C;
+   for Languages use ESPIDFAda.Crate_Languages_Ada_C;
    for Library_Name use "espidfada_driver_spi";
-   for Library_Dir use ESPIDF.Crate_Library_Dir;
-   for Object_Dir use ESPIDF.Crate_Object_Dir;
+   for Library_Dir use ESPIDFAda.Crate_Library_Dir;
+   for Object_Dir use ESPIDFAda.Crate_Object_Dir;
    for Source_Dirs use ("source");
 
-   package Compiler renames ESPIDF.Compiler;
+   package Compiler extends ESPIDFAda.Compiler is
+      for Switches ("Ada")
+        use ESPIDFAda_Driver_SPI_Config.Ada_Compiler_Switches
+        & ESPIDFAda.Compiler_Switches_Ada;
+   end Compiler;
 
 end ESPIDFAda_Driver_SPI;
