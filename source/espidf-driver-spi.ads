@@ -6,9 +6,9 @@
 
 pragma Extensions_Allowed (On);
 
-package ESPIDF.Driver.SPI is
+with ESPIDF.Driver.GPIO;
 
-   type spi_bus_config_t is limited private;
+package ESPIDF.Driver.SPI is
 
    type spi_host_device_t is (SPI1_HOST, SPI2_HOST, SPI3_HOST)
    with Convention => C;
@@ -22,6 +22,31 @@ package ESPIDF.Driver.SPI is
       SPI_DMA_CH1      => 1,
       SPI_DMA_CH2      => 2,
       SPI_DMA_CH_AUTO  => 3);
+
+   type spi_bus_config_t is limited private;
+   --  Default initialization sets all GPIO pins to an invalid state. Application
+   --  should set the appropriate pins using the provided procedures.
+
+   procedure Set_mosi_io_num
+     (Self : in out spi_bus_config_t; Io_Num : ESPIDF.Driver.GPIO.gpio_num_t)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_bus_config_t_mosi_io_num";
+
+   procedure Set_miso_io_num
+     (Self : in out spi_bus_config_t; Io_Num : ESPIDF.Driver.GPIO.gpio_num_t)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_bus_config_t_miso_io_num";
+
+   procedure Set_sclk_io_num
+     (Self : in out spi_bus_config_t; Io_Num : ESPIDF.Driver.GPIO.gpio_num_t)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_bus_config_t_sclk_io_num";
 
 private
 
