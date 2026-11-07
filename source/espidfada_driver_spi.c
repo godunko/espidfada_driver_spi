@@ -32,6 +32,11 @@ void __ada_SET_spi_bus_config_t_sclk_io_num(spi_bus_config_t *config, int io_num
     config->sclk_io_num = io_num;
 }
 
+void __ada_INIT_spi_device_interface_config_t(spi_device_interface_config_t *config)
+{
+    *config = (spi_device_interface_config_t){.spics_io_num = -1};
+}
+
 void __ada_SET_spi_device_interface_config_t_clock_speed_hz(spi_device_interface_config_t *config, int clock_speed_hz)
 {
     config->clock_speed_hz = clock_speed_hz;

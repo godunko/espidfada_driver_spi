@@ -8,6 +8,20 @@ with ESPIDF.Ada_ESP_Check_Error;
 
 package body ESPIDF.Driver.SPI.Master is
 
+   ----------------
+   -- Initialize --
+   ----------------
+
+   procedure Initialize (Self : in out spi_device_interface_config_t) is
+
+     procedure Imported (config : out spi_device_interface_config_t)
+        with Import, Convention => C,
+             External_Name => "__ada_INIT_spi_device_interface_config_t";
+
+   begin
+      Imported (Self);
+   end Initialize;
+
    ------------------------
    -- spi_bus_add_device --
    ------------------------

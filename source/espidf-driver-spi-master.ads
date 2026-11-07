@@ -4,6 +4,8 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
+pragma Extensions_Allowed (On);
+
 package ESPIDF.Driver.SPI.Master is
 
    type spi_device_t is limited private;
@@ -11,6 +13,7 @@ package ESPIDF.Driver.SPI.Master is
    type spi_device_handle_t is access spi_device_t with Convention => C;
 
    type spi_device_interface_config_t is limited private;
+   --  Default initialization sets spics_io_num to -1 and all other fields to zero.
 
    procedure Set_clock_speed_hz
      (Self : in out spi_device_interface_config_t; Clock_Speed_Hz : int)
@@ -49,9 +52,23 @@ private
      Convention    => C,
      External_Name => "__ada_SIZEOF_spi_device_interface_config_t";
 
-   type spi_device_interface_config_t is
+   type spi_device_interface_config_t_Storage is
      new C_Object_Storage (1 .. sizeof_spi_device_interface_config_t)
-   with Convention => C, Default_Component_Value => 0;
+   with Convention => C;
+
+   procedure Initialize (Self : in out spi_device_interface_config_t);
+
+   type spi_device_interface_config_t is limited record
+      Storage : spi_device_interface_config_t_Storage;
+   end record
+   with
+     Convention  => C,
+     Finalizable => (Initialize => Initialize, Relaxed_Finalization => True);
+
+   pragma Assert
+     (spi_device_interface_config_t'Size
+      = sizeof_spi_device_interface_config_t * C_Storage_Element'Size,
+      "Size of spi_device_interface_config_t does not match expected size");
 
    type spi_device_t is limited null record with Convention => C;
 
