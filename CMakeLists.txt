@@ -1,1 +1,1 @@
-idf_component_register(REQUIRES esp_driver_spi)
+idf_component_register(SRCS source/espidfada_driver_spi.c REQUIRES esp_driver_spi)
