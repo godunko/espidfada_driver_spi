@@ -6,11 +6,18 @@
 
 package ESPIDF.Driver.SPI.Master is
 
-   type spi_device_interface_config_t is limited private;
-
    type spi_device_t is limited private;
 
    type spi_device_handle_t is access spi_device_t with Convention => C;
+
+   type spi_device_interface_config_t is limited private;
+
+   procedure Set_clock_speed_hz
+     (Self : in out spi_device_interface_config_t; Clock_Speed_Hz : int)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_device_interface_config_t_clock_speed_hz";
 
    function spi_bus_initialize
      (host_id    : spi_host_device_t;
