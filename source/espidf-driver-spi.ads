@@ -10,6 +10,30 @@ package ESPIDF.Driver.SPI is
 
    type spi_bus_config_t is limited private;
 
+   type spi_host_device_t is (SPI1_HOST, SPI2_HOST, SPI3_HOST)
+   with Convention => C;
+   for spi_host_device_t use (SPI1_HOST => 0, SPI2_HOST => 1, SPI3_HOST => 2);
+
+   type spi_common_dma_t is
+     (SPI_DMA_DISABLED, SPI_DMA_CH1, SPI_DMA_CH2, SPI_DMA_CH_AUTO)
+   with Convention => C;
+   for spi_common_dma_t use
+     (SPI_DMA_DISABLED => 0,
+      SPI_DMA_CH1      => 1,
+      SPI_DMA_CH2      => 2,
+      SPI_DMA_CH_AUTO  => 3);
+
+   function spi_bus_initialize
+     (host_id    : spi_host_device_t;
+      bus_config : spi_bus_config_t;
+      dma_chan   : spi_common_dma_t) return esp_err_t
+   with Import, Convention => C, External_Name => "spi_bus_initialize";
+
+   procedure spi_bus_initialize
+     (host_id    : spi_host_device_t;
+      bus_config : spi_bus_config_t;
+      dma_chan   : spi_common_dma_t);
+
 private
 
    sizeof_spi_bus_config_t : constant int
