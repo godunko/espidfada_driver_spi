@@ -126,6 +126,19 @@ package ESPIDF.Driver.SPI.Master is
      Convention    => C,
      External_Name => "__ada_SET_spi_transaction_t_tx_buffer";
 
+   procedure Set_user
+     (Self : in out spi_transaction_t; User : System.Address)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_transaction_t_user";
+
+   function Get_user (Self : spi_transaction_t) return System.Address
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_GET_spi_transaction_t_user";
+
    --------------------
    -- SPI Master API --
    --------------------

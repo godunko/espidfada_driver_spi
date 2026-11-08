@@ -84,6 +84,16 @@ void __ada_SET_spi_transaction_t_tx_buffer(spi_transaction_t *trans, void *tx_bu
     trans->tx_buffer = tx_buffer;
 }
 
+void __ada_SET_spi_transaction_t_user(spi_transaction_t *trans, void *user)
+{
+    trans->user = user;
+}
+
+void *__ada_GET_spi_transaction_t_user(spi_transaction_t *trans)
+{
+    return trans->user;
+}
+
 esp_err_t __ada_spi_device_acquire_bus(spi_device_handle_t device)
 {
     return spi_device_acquire_bus(device, portMAX_DELAY);
