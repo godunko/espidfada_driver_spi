@@ -180,6 +180,9 @@ package ESPIDF.Driver.SPI.Master is
 
    procedure spi_device_acquire_bus (device : spi_device_handle_t);
 
+   procedure spi_device_release_bus (device : spi_device_handle_t)
+   with Import, Convention => C, External_Name => "spi_device_release_bus";
+
    function spi_device_queue_trans
      (handle        : spi_device_handle_t;
       trans_desc    : aliased in out spi_transaction_t;
