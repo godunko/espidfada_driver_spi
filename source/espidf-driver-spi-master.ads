@@ -118,7 +118,6 @@ private
      Convention    => C,
      External_Name => "__ada_SIZEOF_spi_transaction_t";
 
-
    type spi_device_interface_config_t_Storage is
      new C_Object_Storage (1 .. sizeof_spi_device_interface_config_t)
    with Convention => C;
