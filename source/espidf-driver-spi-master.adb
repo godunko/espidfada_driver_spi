@@ -35,15 +35,6 @@ package body ESPIDF.Driver.SPI.Master is
         (spi_bus_add_device (host_id, dev_config, handle));
    end spi_bus_add_device;
 
-   ----------------------------
-   -- spi_device_acquire_bus --
-   ----------------------------
-
-   procedure spi_device_acquire_bus (device : spi_device_handle_t) is
-   begin
-      ESPIDF.Ada_ESP_Check_Error (spi_device_acquire_bus (device));
-   end spi_device_acquire_bus;
-
    ------------------------
    -- spi_bus_initialize --
    ------------------------
@@ -56,5 +47,14 @@ package body ESPIDF.Driver.SPI.Master is
       ESPIDF.Ada_ESP_Check_Error
         (spi_bus_initialize (host_id, bus_config, dma_chan));
    end spi_bus_initialize;
+
+   ----------------------------
+   -- spi_device_acquire_bus --
+   ----------------------------
+
+   procedure spi_device_acquire_bus (device : spi_device_handle_t) is
+   begin
+      ESPIDF.Ada_ESP_Check_Error (spi_device_acquire_bus (device));
+   end spi_device_acquire_bus;
 
 end ESPIDF.Driver.SPI.Master;
