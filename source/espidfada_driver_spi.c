@@ -74,6 +74,11 @@ void __ada_SET_spi_transaction_t_flags(spi_transaction_t *trans, uint32_t flags)
     trans->flags = flags;
 }
 
+uint32_t __ada_GET_spi_transaction_t_flags(const spi_transaction_t *trans)
+{
+    return trans->flags;
+}
+
 void __ada_SET_spi_transaction_t_length(spi_transaction_t *trans, size_t length)
 {
     trans->length = length;
@@ -89,7 +94,7 @@ void __ada_SET_spi_transaction_t_user(spi_transaction_t *trans, void *user)
     trans->user = user;
 }
 
-void *__ada_GET_spi_transaction_t_user(spi_transaction_t *trans)
+void *__ada_GET_spi_transaction_t_user(const spi_transaction_t *trans)
 {
     return trans->user;
 }

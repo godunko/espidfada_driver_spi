@@ -113,6 +113,12 @@ package ESPIDF.Driver.SPI.Master is
      Convention    => C,
      External_Name => "__ada_SET_spi_transaction_t_flags";
 
+   function Get_flags (Self : spi_transaction_t) return uint32_t
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_GET_spi_transaction_t_flags";
+
    procedure Set_length (Self : in out spi_transaction_t; Length : size_t)
    with
      Import,
