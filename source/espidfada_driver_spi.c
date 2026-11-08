@@ -69,6 +69,21 @@ void __ada_SET_spi_device_interface_config_t_spics_io_num(spi_device_interface_c
     config->spics_io_num = spics_io_num;
 }
 
+void __ada_SET_spi_transaction_t_flags(spi_transaction_t *trans, uint32_t flags)
+{
+    trans->flags = flags;
+}
+
+void __ada_SET_spi_transaction_t_length(spi_transaction_t *trans, size_t length)
+{
+    trans->length = length;
+}
+
+void __ada_SET_spi_transaction_t_tx_buffer(spi_transaction_t *trans, void *tx_buffer)
+{
+    trans->tx_buffer = tx_buffer;
+}
+
 esp_err_t __ada_spi_device_acquire_bus(spi_device_handle_t device)
 {
     return spi_device_acquire_bus(device, portMAX_DELAY);

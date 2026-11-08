@@ -6,6 +6,8 @@
 
 pragma Extensions_Allowed (On);
 
+with System;
+
 package ESPIDF.Driver.SPI.Master is
 
    SPI_DEVICE_TXBIT_LSBFIRST   : constant uint32_t := 2#0_0000_0001#;
@@ -19,6 +21,28 @@ package ESPIDF.Driver.SPI.Master is
    SPI_DEVICE_NO_DUMMY         : constant uint32_t := 2#0_0100_0000#;
    SPI_DEVICE_DDRCLK           : constant uint32_t := 2#0_1000_0000#;
    SPI_DEVICE_NO_RETURN_RESULT : constant uint32_t := 2#1_0000_0000#;
+
+   SPI_TRANS_MODE_DIO         : constant uint32_t := 2#0000_0000_0000_0001#;
+   SPI_TRANS_MODE_QIO         : constant uint32_t := 2#0000_0000_0000_0010#;
+   SPI_TRANS_USE_RXDATA       : constant uint32_t := 2#0000_0000_0000_0100#;
+   SPI_TRANS_USE_TXDATA       : constant uint32_t := 2#0000_0000_0000_1000#;
+   SPI_TRANS_MODE_DIOQIO_ADDR : constant uint32_t := 2#0000_0000_0001_0000#;
+   SPI_TRANS_VARIABLE_CMD     : constant uint32_t := 2#0000_0000_0010_0000#;
+   SPI_TRANS_VARIABLE_ADDR    : constant uint32_t := 2#0000_0000_0100_0000#;
+   SPI_TRANS_VARIABLE_DUMMY   : constant uint32_t := 2#0000_0000_1000_0000#;
+   SPI_TRANS_CS_KEEP_ACTIVE   : constant uint32_t := 2#0000_0001_0000_0000#;
+   SPI_TRANS_MULTILINE_CMD    : constant uint32_t := 2#0000_0010_0000_0000#;
+   SPI_TRANS_MODE_OCT         : constant uint32_t := 2#0000_0100_0000_0000#;
+   SPI_TRANS_MULTILINE_ADDR   : constant uint32_t :=
+     SPI_TRANS_MODE_DIOQIO_ADDR;
+   SPI_TRANS_DMA_BUFFER_ALIGN_MANUAL : constant uint32_t :=
+     2#0000_1000_0000_0000#;
+   SPI_TRANS_DMA_USE_PSRAM    : constant uint32_t := 2#0001_0000_0000_0000#;
+
+   SPI_TRANS_DMA_RX_FAIL : constant uint32_t :=
+     2#0100_0000_0000_0000_0000_0000_0000_0000#;
+   SPI_TRANS_DMA_TX_FAIL : constant uint32_t :=
+     2#1000_0000_0000_0000_0000_0000_0000_0000#;
 
    type spi_device_t is limited private;
 
@@ -78,6 +102,29 @@ package ESPIDF.Driver.SPI.Master is
      Import,
      Convention    => C,
      External_Name => "__ada_SET_spi_device_interface_config_t_spics_io_num";
+
+   -----------------------
+   -- spi_transaction_t --
+   -----------------------
+
+   procedure Set_flags (Self : in out spi_transaction_t; Flags : uint32_t)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_transaction_t_flags";
+
+   procedure Set_length (Self : in out spi_transaction_t; Length : size_t)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_transaction_t_length";
+
+   procedure Set_tx_buffer
+     (Self : in out spi_transaction_t; Tx_Buffer : System.Address)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_transaction_t_tx_buffer";
 
    --------------------
    -- SPI Master API --
