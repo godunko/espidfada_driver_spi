@@ -4,6 +4,7 @@
 //  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 //
 
+#include <freertos/FreeRTOS.h>
 #include <driver/spi_common.h>
 #include <driver/spi_master.h>
 
@@ -66,4 +67,9 @@ void __ada_SET_spi_device_interface_config_t_queue_size(spi_device_interface_con
 void __ada_SET_spi_device_interface_config_t_spics_io_num(spi_device_interface_config_t *config, int spics_io_num)
 {
     config->spics_io_num = spics_io_num;
+}
+
+esp_err_t __ada_spi_device_acquire_bus(spi_device_handle_t device)
+{
+    return spi_device_acquire_bus(device, portMAX_DELAY);
 }

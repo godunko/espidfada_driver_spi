@@ -105,6 +105,15 @@ package ESPIDF.Driver.SPI.Master is
       dev_config : spi_device_interface_config_t;
       handle     : out spi_device_handle_t);
 
+   function spi_device_acquire_bus
+     (device : spi_device_handle_t) return esp_err_t
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_spi_device_acquire_bus";
+
+   procedure spi_device_acquire_bus (device : spi_device_handle_t);
+
 private
 
    sizeof_spi_device_interface_config_t : constant int
