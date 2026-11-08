@@ -161,6 +161,20 @@ package ESPIDF.Driver.SPI.Master is
 
    procedure spi_device_acquire_bus (device : spi_device_handle_t);
 
+   function spi_device_queue_trans
+     (handle        : spi_device_handle_t;
+      trans_desc    : aliased in out spi_transaction_t;
+      ticks_to_wait : uint32_t) return esp_err_t
+   with
+     Import,
+     Convention    => C,
+     External_Name => "spi_device_queue_trans";
+
+   procedure spi_device_queue_trans
+     (handle        : spi_device_handle_t;
+      trans_desc    : aliased in out spi_transaction_t;
+      ticks_to_wait : uint32_t);
+
 private
 
    sizeof_spi_device_interface_config_t : constant int
