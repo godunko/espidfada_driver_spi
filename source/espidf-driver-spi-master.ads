@@ -125,6 +125,20 @@ package ESPIDF.Driver.SPI.Master is
      Convention    => C,
      External_Name => "__ada_SET_spi_transaction_t_length";
 
+   procedure Set_override_freq_hz
+     (Self : in out spi_transaction_t; Frequency : uint32_t)
+   with Import, Convention => C,
+     External_Name => "__ada_SET_spi_transaction_t_override_freq_hz";
+
+   procedure Set_rx_buffer
+     (Self : in out spi_transaction_t; Buffer : System.Address)
+   with Import, Convention => C,
+     External_Name => "__ada_SET_spi_transaction_t_rx_buffer";
+
+   procedure Set_rxlength (Self : in out spi_transaction_t; Length : size_t)
+   with Import, Convention => C,
+     External_Name => "__ada_SET_spi_transaction_t_rxlength";
+
    procedure Set_tx_buffer
      (Self : in out spi_transaction_t; Tx_Buffer : System.Address)
    with

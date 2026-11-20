@@ -89,6 +89,20 @@ void __ada_SET_spi_transaction_t_length(spi_transaction_t *trans, size_t length)
     trans->length = length;
 }
 
+void __ada_SET_spi_transaction_t_override_freq_hz(spi_transaction_t *trans, uint32_t frequency)
+{
+    trans->override_freq_hz = frequency;
+}
+void __ada_SET_spi_transaction_t_rx_buffer(spi_transaction_t *trans, void *buffer)
+{
+    trans->rx_buffer = buffer;
+}
+
+void __ada_SET_spi_transaction_t_rxlength(spi_transaction_t *trans, size_t length)
+{
+    trans->rxlength = length;
+}
+
 void __ada_SET_spi_transaction_t_tx_buffer(spi_transaction_t *trans, void *tx_buffer)
 {
     trans->tx_buffer = tx_buffer;
