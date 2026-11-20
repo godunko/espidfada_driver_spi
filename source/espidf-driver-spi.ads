@@ -27,12 +27,9 @@ package ESPIDF.Driver.SPI is
    --  Default initialization sets all GPIO pins to an invalid state. Application
    --  should set the appropriate pins using the provided procedures.
 
-   procedure Set_mosi_io_num
-     (Self : in out spi_bus_config_t; Io_Num : ESPIDF.Driver.GPIO.gpio_num_t)
-   with
-     Import,
-     Convention    => C,
-     External_Name => "__ada_SET_spi_bus_config_t_mosi_io_num";
+   procedure Set_max_transfer_sz (Self : in out spi_bus_config_t; Size : int)
+   with Import, Convention => C,
+     External_Name => "__ada_SET_spi_bus_config_t_max_transfer_sz";
 
    procedure Set_miso_io_num
      (Self : in out spi_bus_config_t; Io_Num : ESPIDF.Driver.GPIO.gpio_num_t)
@@ -40,6 +37,13 @@ package ESPIDF.Driver.SPI is
      Import,
      Convention    => C,
      External_Name => "__ada_SET_spi_bus_config_t_miso_io_num";
+
+   procedure Set_mosi_io_num
+     (Self : in out spi_bus_config_t; Io_Num : ESPIDF.Driver.GPIO.gpio_num_t)
+   with
+     Import,
+     Convention    => C,
+     External_Name => "__ada_SET_spi_bus_config_t_mosi_io_num";
 
    procedure Set_sclk_io_num
      (Self : in out spi_bus_config_t; Io_Num : ESPIDF.Driver.GPIO.gpio_num_t)
