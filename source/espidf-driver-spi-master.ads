@@ -213,7 +213,7 @@ package ESPIDF.Driver.SPI.Master is
    function spi_device_queue_trans
      (handle        : spi_device_handle_t;
       trans_desc    : aliased in out spi_transaction_t;
-      ticks_to_wait : uint32_t) return esp_err_t
+      ticks_to_wait : ESPIDF.TickType_t) return esp_err_t
    with
      Import,
      Convention    => C,
@@ -222,7 +222,7 @@ package ESPIDF.Driver.SPI.Master is
    procedure spi_device_queue_trans
      (handle        : spi_device_handle_t;
       trans_desc    : aliased in out spi_transaction_t;
-      ticks_to_wait : uint32_t);
+      ticks_to_wait : ESPIDF.TickType_t);
 
 private
 
