@@ -57,6 +57,18 @@ package body ESPIDF.Driver.SPI.Master is
       ESPIDF.Ada_ESP_Check_Error (spi_device_acquire_bus (device));
    end spi_device_acquire_bus;
 
+   ---------------------------------
+   -- spi_device_get_trans_result --
+   ---------------------------------
+
+   procedure spi_device_get_trans_result
+     (handle     : spi_device_handle_t;
+      trans_desc : out spi_transaction_t_Access) is
+   begin
+      ESPIDF.Ada_ESP_Check_Error
+        (spi_device_get_trans_result (handle, trans_desc));
+   end spi_device_get_trans_result;
+
    ----------------------------
    -- spi_device_queue_trans --
    ----------------------------

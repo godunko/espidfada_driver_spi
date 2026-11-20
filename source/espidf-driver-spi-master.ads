@@ -53,6 +53,9 @@ package ESPIDF.Driver.SPI.Master is
 
    type spi_transaction_t is limited private;
 
+   type spi_transaction_t_Access is access all spi_transaction_t
+   with Convention => C;
+
    type transaction_cb_t is access procedure (Trans : in out spi_transaction_t)
    with Convention => C;
 
@@ -193,6 +196,16 @@ package ESPIDF.Driver.SPI.Master is
      External_Name => "__ada_spi_device_acquire_bus";
 
    procedure spi_device_acquire_bus (device : spi_device_handle_t);
+
+   function spi_device_get_trans_result
+     (handle     : spi_device_handle_t;
+      trans_desc : out spi_transaction_t_Access) return esp_err_t
+   with Import, Convention => C,
+     External_Name => "__ada_spi_device_get_trans_result";
+
+   procedure spi_device_get_trans_result
+     (handle     : spi_device_handle_t;
+      trans_desc : out spi_transaction_t_Access);
 
    procedure spi_device_release_bus (device : spi_device_handle_t)
    with Import, Convention => C, External_Name => "spi_device_release_bus";

@@ -122,3 +122,8 @@ esp_err_t __ada_spi_device_acquire_bus(spi_device_handle_t device)
 {
     return spi_device_acquire_bus(device, portMAX_DELAY);
 }
+
+esp_err_t __ada_spi_device_get_trans_result(spi_device_handle_t device, spi_transaction_t **trans)
+{
+    return spi_device_get_trans_result(device, trans, portMAX_DELAY);
+}
