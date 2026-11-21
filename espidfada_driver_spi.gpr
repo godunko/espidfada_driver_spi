@@ -10,7 +10,7 @@ with "espidfada.gpr";
 
 library project ESPIDFAda_Driver_SPI is
 
-   for Languages use ESPIDFAda.Crate_Languages_Ada_C;
+   for Languages use ("Ada");
    for Library_Name use "espidfada_driver_spi";
    for Library_Dir use ESPIDFAda.Crate_Library_Dir;
    for Object_Dir use ESPIDFAda.Crate_Object_Dir;
