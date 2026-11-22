@@ -8,6 +8,8 @@ pragma Extensions_Allowed (On);
 
 with System;
 
+private with ESPIDF.Constants.SPI;
+
 package ESPIDF.Driver.SPI.Master is
 
    SPI_DEVICE_TXBIT_LSBFIRST   : constant uint32_t := 2#0_0000_0001#;
@@ -226,20 +228,12 @@ package ESPIDF.Driver.SPI.Master is
 
 private
 
-   sizeof_spi_device_interface_config_t : constant int
-   with
-     Import,
-     Convention    => C,
-     External_Name => "__ada_SIZEOF_spi_device_interface_config_t";
-   sizeof_spi_transaction_t             : constant int
-   with
-     Import,
-     Convention    => C,
-     External_Name => "__ada_SIZEOF_spi_transaction_t";
-
    type spi_device_interface_config_t_Storage is
-     new C_Object_Storage (1 .. sizeof_spi_device_interface_config_t)
-   with Convention => C;
+     new C_Object_Storage
+          (1 .. ESPIDF.Constants.SPI.sizeof_spi_device_interface_config_t)
+   with
+     Convention => C,
+     Alignment  => ESPIDF.Constants.SPI.alignof_spi_device_interface_config_t;
 
    procedure Initialize (Self : in out spi_device_interface_config_t);
 
@@ -248,17 +242,19 @@ private
    end record
    with
      Convention  => C,
+     Size        =>
+       ESPIDF.Constants.SPI.sizeof_spi_device_interface_config_t
+       * C_Storage_Element'Size,
+     Alignment   => ESPIDF.Constants.SPI.alignof_spi_device_interface_config_t,
      Finalizable => (Initialize => Initialize, Relaxed_Finalization => True);
-
-   pragma Assert
-     (spi_device_interface_config_t'Size
-      = sizeof_spi_device_interface_config_t * C_Storage_Element'Size,
-      "Size of spi_device_interface_config_t does not match expected size");
 
    type spi_device_t is limited null record with Convention => C;
 
-   type spi_transaction_t is new C_Object_Storage (1 .. sizeof_spi_transaction_t)
-     with Convention              => C,
-          Default_Component_Value => 0;
+   type spi_transaction_t is
+     new C_Object_Storage (1 .. ESPIDF.Constants.SPI.sizeof_spi_transaction_t)
+   with
+     Convention              => C,
+     Alignment               => ESPIDF.Constants.SPI.alignof_spi_transaction_t,
+     Default_Component_Value => 0;
 
 end ESPIDF.Driver.SPI.Master;

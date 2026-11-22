@@ -14,7 +14,7 @@ library project ESPIDFAda_Driver_SPI is
    for Library_Name use "espidfada_driver_spi";
    for Library_Dir use ESPIDFAda.Crate_Library_Dir;
    for Object_Dir use ESPIDFAda.Crate_Object_Dir;
-   for Source_Dirs use ("source");
+   for Source_Dirs use ("source", ".gens");
 
    package Compiler extends ESPIDFAda.Compiler is
       for Switches ("Ada")

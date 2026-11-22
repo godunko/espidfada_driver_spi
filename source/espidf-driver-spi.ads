@@ -8,6 +8,8 @@ pragma Extensions_Allowed (On);
 
 with ESPIDF.Driver.GPIO;
 
+private with ESPIDF.Constants.SPI;
+
 package ESPIDF.Driver.SPI is
 
    type spi_host_device_t is (SPI1_HOST, SPI2_HOST, SPI3_HOST)
@@ -54,15 +56,11 @@ package ESPIDF.Driver.SPI is
 
 private
 
-   sizeof_spi_bus_config_t : constant int
-   with
-     Import,
-     Convention    => C,
-     External_Name => "__ada_SIZEOF_spi_bus_config_t";
-
    type spi_bus_config_t_Storage is
-     new C_Object_Storage (1 .. sizeof_spi_bus_config_t)
-   with Convention => C;
+     new C_Object_Storage (1 .. ESPIDF.Constants.SPI.sizeof_spi_bus_config_t)
+   with
+     Convention => C,
+     Alignment  => ESPIDF.Constants.SPI.alignof_spi_bus_config_t;
 
    procedure Initialize (Self : in out spi_bus_config_t);
 
@@ -71,11 +69,9 @@ private
    end record
    with
      Convention  => C,
+     Size        =>
+       ESPIDF.Constants.SPI.sizeof_spi_bus_config_t * C_Storage_Element'Size,
+     Alignment   => ESPIDF.Constants.SPI.alignof_spi_bus_config_t,
      Finalizable => (Initialize => Initialize, Relaxed_Finalization => True);
-
-   pragma Assert
-     (spi_bus_config_t'Size
-      = sizeof_spi_bus_config_t * C_Storage_Element'Size,
-      "Size of spi_bus_config_t does not match expected size");
 
 end ESPIDF.Driver.SPI;
